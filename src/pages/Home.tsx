@@ -19,17 +19,24 @@ import AddCourse from "../components/AddCourse";
 import UpdateCourse from "../components/UpdateCourse";
 import { useNavigate } from "react-router-dom";
 import { SiFirebase } from "react-icons/si";
+import CourseHelperClass, { ICourseDoc } from "../CourseHelperClass";
 const Home = () => {
-  const [courses, setCourses] = useState([
-    {
-      id: "hi",
-      name: "Demo Course",
-      students: 100,
-      type: "easy",
-    },
-  ]);
+  const [courses, setCourses] = useState<ICourseDoc[]>([]);
   const navigate = useNavigate();
 
+  //fetchCourses
+  const fetchCourses = async () => {
+    //CourseHelperClass will provide the courses which is in db with getCouses function call
+    const courses = await CourseHelperClass.getCourses();
+    //console.log(courses);
+    setCourses(courses);
+  };
+
+  //useEffect hook for Api Call
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+  console.log(courses);
   return (
     <>
       <Flex py="4" bg="purple.800" justify="center" align="center" gap="4">
@@ -55,7 +62,7 @@ const Home = () => {
             </Thead>
             <Tbody>
               {courses.map((course) => (
-                <Tr key={course.name}>
+                <Tr key={course.id}>
                   <Td>{course.name}</Td>
                   <Td>{course.students}</Td>
                   <Td>
