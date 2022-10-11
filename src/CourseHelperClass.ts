@@ -35,6 +35,12 @@ class CourseHelperClass {
       return { ...doc.data(), id: doc.id } as ICourseDoc;
     });
   };
+
+  //addCourse to db
+  addCourse = async (course: ICourse) => {
+    //call addDoc function from firebasestore
+    return addDoc(coursesCollectionRef, course);
+  };
 }
 
 export default new CourseHelperClass();
