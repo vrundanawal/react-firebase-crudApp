@@ -7,12 +7,16 @@ import {
   SubmitButton,
 } from "formik-chakra-ui";
 import { FC, useState } from "react";
+import CourseHelperClass from "../CourseHelperClass";
 
 import Modal from "./Modal";
 
-interface IAddCourseProps {}
+//create a interface to addUsers and call the fetchCourses with return type void
+interface IAddCourseProps {
+  fetchCourses: () => void;
+}
 
-const AddCourse: FC<IAddCourseProps> = ({}) => {
+const AddCourse: FC<IAddCourseProps> = ({ fetchCourses }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,6 +27,23 @@ const AddCourse: FC<IAddCourseProps> = ({}) => {
           initialValues={{ name: "", students: "", type: "" }}
           onSubmit={async (values) => {
             console.log(values);
+            //try and catch block to handle the data
+            try {
+              setIsLoading(true);
+              //call the helper class with method to add coureses
+              await CourseHelperClass.addCourse({
+                name: values.name,
+                students: parseInt(values.students), //convert string into number
+                type: values.type,
+              });
+            } catch (error) {
+              console.log(error);
+              alert(error);
+            } finally {
+              setIsLoading(false); //after getting data make loading is to be false
+              fetchCourses(); //call fetchCourses to get updated data without refresh the page
+              onClose(); //from formik to close the modal after add the data
+            }
           }}
         >
           <Form>

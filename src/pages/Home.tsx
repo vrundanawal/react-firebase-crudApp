@@ -49,7 +49,8 @@ const Home = () => {
         </Heading>
       </Flex>
       <Container maxW="container.lg" mt="8">
-        <AddCourse />
+        {/* send fetchUsers as a props to update the ui with updated data*/}
+        <AddCourse fetchCourses={fetchCourses} />
         <TableContainer>
           <Table variant="striped" colorScheme="purple">
             <Thead>
