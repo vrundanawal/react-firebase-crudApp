@@ -38,7 +38,7 @@ const Home = () => {
           fontSize={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
           color="white"
         >
-          Firebase Basic v9 CRUD Operations
+          Firebase/React Crud App
         </Heading>
       </Flex>
       <Container maxW="container.lg" mt="8">
