@@ -41,6 +41,13 @@ class CourseHelperClass {
     //call addDoc function from firebasestore
     return addDoc(coursesCollectionRef, course);
   };
+
+  //update course
+  updateCourse = (id: string, course: ICourse) => {
+    //create a reference and store into variable eg= courseDoc
+    const courseDoc = doc(db, courseStr, id); //pass id as a document reference
+    return updateDoc(courseDoc, courseStr, course);
+  };
 }
 
 export default new CourseHelperClass();
