@@ -8,12 +8,15 @@ import {
 } from "formik-chakra-ui";
 import { FC, useState } from "react";
 import { FaEdit } from "react-icons/fa";
+import { ICourseDoc } from "../CourseHelperClass";
 
 import Modal from "./Modal";
 
-interface IUpdateCourseProps {}
+interface IUpdateCourseProps {
+  course: ICourseDoc;
+}
 
-const UpdateCourse: FC<IUpdateCourseProps> = ({}) => {
+const UpdateCourse: FC<IUpdateCourseProps> = ({ course }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,24 +25,34 @@ const UpdateCourse: FC<IUpdateCourseProps> = ({}) => {
       <Modal title="Update Course" isOpen={isOpen} onClose={onClose}>
         <Formik
           initialValues={{
-            name: "",
-            students: "",
-            type: "",
+            studentName: course.studentName,
+            name: course.name,
+            marks: course.marks,
+            type: course.type,
+            description: course.description,
           }}
           onSubmit={async (values) => {
-            console.log(values);
+            // console.log(values);
+            try {
+              console.log(values);
+            } catch (error) {}
           }}
         >
           <Form>
             <Stack py="4">
+              <InputControl
+                name="studentName"
+                label="Student Name"
+                inputProps={{ placeholder: "Enter Your Name" }}
+              />
               <InputControl
                 name="name"
                 label="Course Name"
                 inputProps={{ placeholder: "Enter  Course Name" }}
               />
               <NumberInputControl
-                name="students"
-                label="Students Enrolled"
+                name="marks"
+                label="Students Marks"
                 helperText="Enter Number of Students"
               />
               <SelectControl name="type" label="Course Type">
@@ -48,6 +61,11 @@ const UpdateCourse: FC<IUpdateCourseProps> = ({}) => {
                 <option value="medium">Medium</option>
                 <option value="easy">Easy</option>
               </SelectControl>
+              <InputControl
+                name="description"
+                label="Description"
+                inputProps={{ placeholder: "Description" }}
+              />
             </Stack>
             <Flex justify="end">
               <SubmitButton isLoading={isLoading} colorScheme="purple">

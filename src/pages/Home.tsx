@@ -55,8 +55,9 @@ const Home = () => {
           <Table variant="striped" colorScheme="purple">
             <Thead>
               <Tr>
-                <Th>Name</Th>
-                <Th>Students Enrolled</Th>
+                <Th>Student Name</Th>
+                <Th> Course Name</Th>
+                <Th>Marks</Th>
                 <Th>Type</Th>
                 <Th></Th>
               </Tr>
@@ -64,8 +65,10 @@ const Home = () => {
             <Tbody>
               {courses.map((course) => (
                 <Tr key={course.id}>
+                  <Td>{course.studentName}</Td>
                   <Td>{course.name}</Td>
-                  <Td>{course.students}</Td>
+                  <Td>{course.marks}</Td>
+
                   <Td>
                     <Badge
                       colorScheme={
@@ -88,7 +91,7 @@ const Home = () => {
                       >
                         <FaEye />
                       </Icon>
-                      <UpdateCourse />
+                      <UpdateCourse course={course} />
                       <Icon
                         _hover={{ color: "red.500" }}
                         color="red.300"

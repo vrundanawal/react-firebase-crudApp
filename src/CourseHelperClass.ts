@@ -13,9 +13,11 @@ import {
 
 //create a interface
 export interface ICourse {
+  studentName: string;
   name: string;
-  students: number;
+  marks: number;
   type: string;
+  description: string;
 }
 
 export interface ICourseDoc extends ICourse {

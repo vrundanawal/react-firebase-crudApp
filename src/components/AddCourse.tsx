@@ -24,7 +24,13 @@ const AddCourse: FC<IAddCourseProps> = ({ fetchCourses }) => {
     <>
       <Modal title="Add Course" isOpen={isOpen} onClose={onClose}>
         <Formik
-          initialValues={{ name: "", students: "", type: "" }}
+          initialValues={{
+            studentName: "",
+            name: "",
+            marks: "",
+            type: "",
+            description: "",
+          }}
           onSubmit={async (values) => {
             console.log(values);
             //try and catch block to handle the data
@@ -32,9 +38,11 @@ const AddCourse: FC<IAddCourseProps> = ({ fetchCourses }) => {
               setIsLoading(true);
               //call the helper class with method to add coureses
               await CourseHelperClass.addCourse({
+                studentName: values.studentName,
                 name: values.name,
-                students: parseInt(values.students), //convert string into number
+                marks: parseInt(values.marks), //convert string into number
                 type: values.type,
+                description: values.description,
               });
             } catch (error) {
               console.log(error);
@@ -49,22 +57,31 @@ const AddCourse: FC<IAddCourseProps> = ({ fetchCourses }) => {
           <Form>
             <Stack py="4">
               <InputControl
+                name="studentName"
+                label="Student Name"
+                inputProps={{ placeholder: "Enter Your Name" }}
+              />
+              <InputControl
                 name="name"
                 label="Course Name"
-                inputProps={{ placeholder: "Enter  Course Name" }}
+                inputProps={{ placeholder: "Enter Course Name" }}
               />
-              <NumberInputControl
-                name="students"
-                label="Students Enrolled"
-                helperText="Enter Number of Students"
-              />
+              <NumberInputControl name="marks" label="Students Marks" />
+
               <SelectControl name="type" label="Course Type">
                 <option value="">Select a course type</option>
                 <option value="hard">Hard</option>
                 <option value="medium">Medium</option>
                 <option value="easy">Easy</option>
               </SelectControl>
+
+              <InputControl
+                name="description"
+                label="Description"
+                inputProps={{ placeholder: "Description" }}
+              />
             </Stack>
+
             <Flex justify="end">
               <SubmitButton isLoading={isLoading} colorScheme="purple">
                 Add Course
