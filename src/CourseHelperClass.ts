@@ -57,6 +57,15 @@ class CourseHelperClass {
     const courseDoc = doc(db, courseStr, id); //pass id as a document reference
     return deleteDoc(courseDoc);
   };
+
+  //getDetails
+  getDetails = async (id: string) => {
+    //create a reference and store into variable eg= courseDoc
+    const courseDoc = doc(db, courseStr, id); //pass id as a document reference
+    //fetch the detail
+    const fetchedDoc = await getDoc(courseDoc);
+    return { ...fetchedDoc.data(), id: fetchedDoc.id } as ICourseDoc;
+  };
 }
 
 export default new CourseHelperClass();
