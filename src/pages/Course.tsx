@@ -1,18 +1,12 @@
-import {
-  Heading,
-  List,
-  ListItem,
-  Stack,
-  Button,
-  Container,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Heading, List, ListItem, Stack, Button } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import CourseHelperClass, { ICourseDoc } from "../CourseHelperClass";
 
 const Course = () => {
   const { id } = useParams();
   const [course, setCourse] = useState<ICourseDoc>();
+  //const history = useNavigate();
 
   const fetchDetails = async () => {
     if (id) {
@@ -23,11 +17,20 @@ const Course = () => {
 
   useEffect(() => {
     fetchDetails();
-  });
+  }, []);
+
+  const navigate = useNavigate();
+  const goToHomePage = () => {
+    navigate("/");
+  };
   return (
     <Stack m="12" p="10" boxShadow="xl" spacing={4} align="center">
-      {/* <Stack m="12" p="5" boxShadow="xl"> */}
-      <Button colorScheme="blue">Go Back</Button>
+      {/* <Button onClick={() => history(-1)} colorScheme="purple">
+        Go Back
+      </Button> */}
+      <Button onClick={goToHomePage} colorScheme="purple">
+        Go Back
+      </Button>
 
       <Heading>More Information</Heading>
       <List>

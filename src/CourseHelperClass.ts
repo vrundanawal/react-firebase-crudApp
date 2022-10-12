@@ -45,14 +45,14 @@ class CourseHelperClass {
   };
 
   //update course
-  updateCourse = (id: string, course: ICourse) => {
+  updateCourse = async (id: string, course: ICourse) => {
     //create a reference and store into variable eg= courseDoc
     const courseDoc = doc(db, courseStr, id); //pass id as a document reference
     return updateDoc(courseDoc, course as any);
   };
 
   //delete course
-  deleteCourse = (id: string) => {
+  deleteCourse = async (id: string) => {
     //create a reference and store into variable eg= courseDoc
     const courseDoc = doc(db, courseStr, id); //pass id as a document reference
     return deleteDoc(courseDoc);

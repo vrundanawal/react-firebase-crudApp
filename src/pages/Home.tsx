@@ -6,7 +6,6 @@ import {
   Icon,
   Table,
   TableContainer,
-  Tag,
   Tbody,
   Td,
   Th,
