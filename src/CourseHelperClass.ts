@@ -50,6 +50,13 @@ class CourseHelperClass {
     const courseDoc = doc(db, courseStr, id); //pass id as a document reference
     return updateDoc(courseDoc, course as any);
   };
+
+  //delete course
+  deleteCourse = (id: string) => {
+    //create a reference and store into variable eg= courseDoc
+    const courseDoc = doc(db, courseStr, id); //pass id as a document reference
+    return deleteDoc(courseDoc);
+  };
 }
 
 export default new CourseHelperClass();

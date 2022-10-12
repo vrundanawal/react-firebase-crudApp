@@ -36,7 +36,13 @@ const Home = () => {
   useEffect(() => {
     fetchCourses();
   }, []);
-  console.log(courses);
+
+  //delete the course
+  const deleteCourseHandler = async (id: string) => {
+    await CourseHelperClass.deleteCourse(id);
+    fetchCourses(); //call fetchCourses to update the ui
+  };
+
   return (
     <>
       <Flex py="4" bg="purple.800" justify="center" align="center" gap="4">
@@ -96,6 +102,7 @@ const Home = () => {
                         fetchCourses={fetchCourses}
                       />
                       <Icon
+                        onClick={() => deleteCourseHandler(course.id)}
                         _hover={{ color: "red.500" }}
                         color="red.300"
                         fontSize="xl"
