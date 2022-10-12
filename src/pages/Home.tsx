@@ -91,7 +91,10 @@ const Home = () => {
                       >
                         <FaEye />
                       </Icon>
-                      <UpdateCourse course={course} />
+                      <UpdateCourse
+                        course={course}
+                        fetchCourses={fetchCourses}
+                      />
                       <Icon
                         _hover={{ color: "red.500" }}
                         color="red.300"

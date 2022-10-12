@@ -48,7 +48,7 @@ class CourseHelperClass {
   updateCourse = (id: string, course: ICourse) => {
     //create a reference and store into variable eg= courseDoc
     const courseDoc = doc(db, courseStr, id); //pass id as a document reference
-    return updateDoc(courseDoc, courseStr, course);
+    return updateDoc(courseDoc, course as any);
   };
 }
 

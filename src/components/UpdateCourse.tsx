@@ -8,15 +8,16 @@ import {
 } from "formik-chakra-ui";
 import { FC, useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import { ICourseDoc } from "../CourseHelperClass";
+import CourseHelperClass, { ICourseDoc } from "../CourseHelperClass";
 
 import Modal from "./Modal";
 
 interface IUpdateCourseProps {
   course: ICourseDoc;
+  fetchCourses: () => void;
 }
 
-const UpdateCourse: FC<IUpdateCourseProps> = ({ course }) => {
+const UpdateCourse: FC<IUpdateCourseProps> = ({ course, fetchCourses }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,8 +35,23 @@ const UpdateCourse: FC<IUpdateCourseProps> = ({ course }) => {
           onSubmit={async (values) => {
             // console.log(values);
             try {
-              console.log(values);
-            } catch (error) {}
+              setIsLoading(true);
+              //call the helper class with method to add coureses
+              await CourseHelperClass.updateCourse(course.id, {
+                studentName: values.studentName,
+                name: values.name,
+                marks: values.marks, //convert string into number
+                type: values.type,
+                description: values.description,
+              });
+            } catch (error) {
+              console.log(error);
+              alert(error);
+            } finally {
+              setIsLoading(false); //after getting data make loading is to be false
+              fetchCourses(); //call fetchCourses to get updated data without refresh the page
+              onClose(); //from formik to close the modal after add the data
+            }
           }}
         >
           <Form>
